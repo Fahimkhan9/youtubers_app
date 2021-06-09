@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 # import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +32,7 @@ SECRET_KEY = '5cd_h8#h4qhxd4rou2bw(57op8@_p3g5e50l&)#kkc0*r1$2q0'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-   '*'
+   'youtubers-app.herokuapp.com'
 ]
 
 
@@ -90,25 +95,17 @@ WSGI_APPLICATION = 'tubers.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'lcotubers',
-#         'USER': 'postgres',
-#         'PASSWORD': 'khanpost@.com',
-#         'HOST': 'localhost'
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd6at3neo573bf4',
-        'USER': 'biwqdqknkmvpix',
-        'PASSWORD': 'f5e7472339be1a5fc49d172ce0e154c63694b3076601dc15370045e482305fbc',
-        'HOST': 'ec2-52-6-178-202.compute-1.amazonaws.com'
+         'NAME': env('POSTGRES_DB_NAME'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env('POSTGRES_PORT'),
     }
 }
+
 
 # dj_from_env = dj_database_url.config(conn_max_age=600)
 
